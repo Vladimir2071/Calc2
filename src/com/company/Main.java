@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         // write your code here
         double result = 0;
-        String strExpr = "(-55.4+8)*12-120/4+29*2.5";
+        String strExpr = "(-55.4+8)*12-120*(-2)/4+29*2.5";  //(-55.4+8)*12-120*(-2)/4+29*2.5
 
         try {
             result = evaluteExprassion(strExpr);
@@ -32,20 +32,21 @@ public class Main {
 
         double result = 0;
 
-        ArrayList<TokenExpression> list = new ArrayList<TokenExpression>();
-        ArrayList<TokenExpression> listPoland = new ArrayList<TokenExpression>();
+        ArrayList<TokenExpression> list;    //  = new ArrayList<>()
+        ArrayList<TokenExpression> listPoland;  //  = new ArrayList<>()
 
         //ParsingExpression parseExpr new ParsingExpression(str);
         list = ParsingExpression.parseStrExpr(str);
         listPoland = ReversePolish.getPolandListElements(list);
 
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).getValue() + "   " + list.get(i).getToken());
+        for (TokenExpression elem:  list) {
+            System.out.println(elem.getValue() + "   " + elem.getToken());
         }
 
         System.out.println("==========================================");
-        for (int i = 0; i < listPoland.size(); i++) {
-            System.out.println(listPoland.get(i).getValue() + "   " + listPoland.get(i).getToken());
+
+        for (TokenExpression elem:  listPoland) {
+            System.out.println(elem.getValue() + "   " + elem.getToken());
         }
 
         result = EvalExpression.evalExpression(listPoland);

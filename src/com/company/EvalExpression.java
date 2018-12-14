@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EvalExpression {
 
-    public static double evalBinaryOperation(List<TokenExpression> list, TokenExpression elem) {
+    private static double evalBinaryOperation(List<TokenExpression> list, TokenExpression elem) {
 
         double x1, x2, result = 0.0;
 
@@ -34,7 +34,7 @@ public class EvalExpression {
         return result;
     }
 
-    public static double evalUnaryOperation(List<TokenExpression> list, TokenExpression elem) {
+    private static double evalUnaryOperation(List<TokenExpression> list, TokenExpression elem) {
 
         double x1, result = 0.0;
 
@@ -56,7 +56,7 @@ public class EvalExpression {
 
     public static double evalExpression(ArrayList<TokenExpression> list) {
 
-        List<TokenExpression> operands = new ArrayList<TokenExpression>();
+        List<TokenExpression> operands;
 
         double tempResult = 0;
         int index = 0;
@@ -76,10 +76,9 @@ public class EvalExpression {
                 case 1:
                     tempResult =  evalUnaryOperation(operands, list.get(index));
                     break;
-                case 2: {
+                case 2:
                     tempResult =  evalBinaryOperation(operands, list.get(index));
                     break;
-                }
             }
 
             list.get(index - arity).setValue(Double.toString(tempResult));

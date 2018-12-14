@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class ParsingExpression {
 
     //private String str;
-    public static HashMap<String, OperationExpression> hmOperation;
+    private static HashMap<String, OperationExpression> hmOperation;
 
 //    public ParsingExpression(String str) {
 //        this.str = str;
@@ -19,10 +19,10 @@ public class ParsingExpression {
     /* ============================================================
             add token of expression in the array of tokens
     ============================================================ */
-    static void AddList(ArrayList<TokenExpression> list, TypeToken en, String str) {
+    private static void AddList(ArrayList<TokenExpression> list, TypeToken en, String str) {
         int priority = 0;
         int arity = 0;
-        String key = "";
+        String key;
         TokenExpression token = new TokenExpression("empty", TypeToken.NOTHING);
 
         if (en == TypeToken.OPERAND) {
@@ -44,10 +44,9 @@ public class ParsingExpression {
     parsing string expression
     ============================================================ */
     public static ArrayList<TokenExpression> parseStrExpr(String str) throws Exception {
-        ArrayList<TokenExpression> list = new  ArrayList<TokenExpression>();
-        TypeToken typeBuffer = null;
+        ArrayList<TokenExpression> list = new  ArrayList<>();
+        TypeToken typeBuffer;
         hmOperation = LoadOperation();
-        //ParsingExpression.LoadOperation();
 
         double tempVar;
         char ch = str.charAt(0);
@@ -128,8 +127,8 @@ public class ParsingExpression {
     load permitted operations
     ============================================================ */
     //
-    protected static HashMap<String, OperationExpression> LoadOperation() {
-        HashMap<String, OperationExpression> hmOperation = new HashMap<String, OperationExpression>();
+    private static HashMap<String, OperationExpression> LoadOperation() {
+        HashMap<String, OperationExpression> hmOperation = new HashMap<>();
 
         hmOperation.put("+", new OperationExpression("+", TypeToken.OPERATION,2,2)); // binary add
         hmOperation.put("-", new OperationExpression("-", TypeToken.OPERATION,2,2));// binary minus
