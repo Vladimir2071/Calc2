@@ -8,17 +8,9 @@ public class ParsingExpression {
     //private String str;
     private static HashMap<String, OperationExpression> hmOperation;
 
-//    public ParsingExpression(String str) {
-//        this.str = str;
-//    }
-//
-//    public String getStr() {
-//        return str;
-//    }
-
     /* ============================================================
-            add token of expression in the array of tokens
-    ============================================================ */
+                    add token of expression in the array of tokens
+            ============================================================ */
     private static void AddList(ArrayList<TokenExpression> list, TypeToken en, String str) {
         int priority = 0;
         int arity = 0;
@@ -49,6 +41,7 @@ public class ParsingExpression {
         hmOperation = LoadOperation();
 
         double tempVar;
+
         char ch = str.charAt(0);
         String readBuffer = String.valueOf(ch);
 
@@ -113,7 +106,10 @@ public class ParsingExpression {
                     AddList(list,typeBuffer, readBuffer);
                     readBuffer = String.valueOf(ch);
                     typeBuffer = TypeToken.CLOSE_BRACKET;
-                } else {
+                } else  if (typeBuffer == TypeToken.CLOSE_BRACKET) {
+                    AddList(list,typeBuffer, readBuffer);
+                }
+                else {
                     throw new Exception("Incorrect symbol(UNARY_OPER) " + ch + " in position: " + (i + 1));
                 }
             }

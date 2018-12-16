@@ -1,9 +1,13 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class EvalExpression {
+
+    private String strExpr;
+    private HashMap<String, OperationExpression> hmOperation;
 
     private static double evalBinaryOperation(List<TokenExpression> list, TokenExpression elem) {
 
@@ -26,7 +30,11 @@ public class EvalExpression {
                 break;
             }
             case "/": {
-                result = x1 / x2;
+                if (!(x2 == 0)) {
+                    result = x1 / x2;
+                } else {
+                    return x1 > 0 ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
+                }
                 break;
             }
         }
@@ -81,6 +89,11 @@ public class EvalExpression {
                     break;
             }
 
+            // check result
+            if (!Double.isFinite(tempResult)) {
+                return tempResult;
+            }
+
             list.get(index - arity).setValue(Double.toString(tempResult));
 
             for (int i = index;  i > index - arity; i--) {
@@ -89,6 +102,27 @@ public class EvalExpression {
         }
 
         return Double.parseDouble(list.get(0).getValue());
+    }
+
+    public EvalExpression(String strExpr, HashMap<String, OperationExpression> hmOperation) {
+        this.strExpr = strExpr;
+        this.hmOperation = hmOperation;
+    }
+
+    public String getStrExpr() {
+        return strExpr;
+    }
+
+    public void setStrExpr(String strExpr) {
+        this.strExpr = strExpr;
+    }
+
+    public HashMap<String, OperationExpression> getHmOperation() {
+        return hmOperation;
+    }
+
+    public void setHmOperation(HashMap<String, OperationExpression> hmOperation) {
+        this.hmOperation = hmOperation;
     }
 
 }
